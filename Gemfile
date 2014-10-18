@@ -27,3 +27,5 @@ gem 'google-api-client', :require => 'google/api_client'
 # gem 'debugger', group: [:development, :test]
 
 gem 'rails_12factor', group: :production
+
+gem "figaro"

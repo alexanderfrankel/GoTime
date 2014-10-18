@@ -17,11 +17,8 @@ ActiveRecord::Schema.define(version: 20141018160911) do
   enable_extension "plpgsql"
 
   create_table "events", force: true do |t|
-    t.string   "name"
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.string   "location"
-    t.string   "note"
+    t.string   "appt_id"
+    t.string   "transit_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
