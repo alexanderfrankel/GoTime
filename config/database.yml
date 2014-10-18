@@ -5,8 +5,8 @@ default: &default
 
 development:
   <<: *default
-  database: roll_development
+  database: gotime_development
 
 test:
   <<: *default
-  database: roll_test
+  database: gotime_test
