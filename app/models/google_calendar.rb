@@ -20,22 +20,22 @@ class GoogleCalendar
 	def calendar_watch
 		options = {
 			:api_method => @service.events.watch,
-			:parameters => {"calendarId" => @current_user.email,
-											"id" => "cbi4vk1XUqBEX2Y2oK35Og",
-											"type" => "web_hook",
-											"address" => "https:/gotime.io/google_notifications"},
+			:parameters => {"calendarId" => @current_user.email},
+			:body => JSON.dump({id: "cbi4vk1XUqBEX2Y2oK35Og",
+													type: "web_hook",
+													address: "https://42672916.ngrok.com/google_notifications"}),
 			:headers => {'Content-Type' => 'application/json'}
 		}
 
 		@client.execute(options)
 	end
 
-	def add_transit_event
-		options = {
-			:api_method => service.events.insert,
-			:parameters => {'calendarId' => 'primary'},
-			:body => JSON.dump(event),
-			:headers => {'Content-Type' => 'application/json'}
-		}
-	end
+	# def add_transit_event
+	# 	options = {
+	# 		:api_method => service.events.insert,
+	# 		:parameters => {'calendarId' => 'primary'},
+	# 		:body => JSON.dump(event),
+	# 		:headers => {'Content-Type' => 'application/json'}
+	# 	}
+	# end
 end
