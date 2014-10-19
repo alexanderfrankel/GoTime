@@ -1,4 +1,5 @@
 class GoogleCalendar
+	attr_reader :sync_token
 
 	def initialize(current_user)
 		@current_user = current_user
@@ -15,7 +16,10 @@ class GoogleCalendar
 		  :headers    => {"Content-Type" => "application/json"}
 		}
 
-		@calendar_events_with_location = events_with_location(@client.execute(options).data.items)
+		calendar_events = @client.execute(options).data
+		@sync_token = calendar_events.nextSyncToken
+
+		@calendar_events_with_location = events_with_location(calendar_events.items)
 	end
 
 	def add_transit_event(appt_event)
