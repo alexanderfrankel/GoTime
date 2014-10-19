@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(version: 20141019001646) do
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "user_id"
-    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
