@@ -1,3 +1,12 @@
 <% if current_user %>
-	<%= "This means a user is logged in and here is their calendar: #{@result}"  %>
+	<% @result.each do |event| %>
+		<%= event.kind %><br>
+		<%= event.etag %><br>
+		<%= event.id %><br>
+		<%= event.summary %><br>
+		<%= event.description %><br>
+		<%= event.location %><br>
+		<%= event.start["dateTime"] %><br>
+		<br>
+	<% end %>
 <% end %>

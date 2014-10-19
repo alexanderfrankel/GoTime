@@ -7,4 +7,5 @@ Rails.application.routes.draw do
 
   resources :sessions, only: [:create, :destroy]
   resources :home, only: :index
+  resources :google_notifications, only: :create
 end
