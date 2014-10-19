@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'signout', to: 'sessions#destroy', as: 'signout'
 
   post 'gotime/authorize', to: 'go_time#create', as: 'authorize'
-  post 'gotime/unauthorize', to: 'go_time#destroy', as: 'unauthorize'
+  get 'gotime/unauthorize', to: 'go_time#destroy', as: 'unauthorize'
 
   resources :sessions, only: [:create, :destroy]
   resources :home, only: :index

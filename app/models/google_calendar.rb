@@ -37,18 +37,18 @@ class GoogleCalendar
 		@client.execute(options).data
 	end
 
-	# def calendar_watch
-	# 	options = {
-	# 		:api_method => @service.events.watch,
-	# 		:parameters => {"calendarId" => @current_user.email},
-	# 		:body => JSON.dump({id: "cbi4vk1XUqBEX2Y2oK35Og",
-	# 												type: "web_hook",
-	# 												address: "https://42672916.ngrok.com/google_notifications"}),
-	# 		:headers => {'Content-Type' => 'application/json'}
-	# 	}
+	def calendar_watch
+		options = {
+			:api_method => @service.events.watch,
+			:parameters => {"calendarId" => @current_user.email},
+			:body => JSON.dump({id: "cbi4vk1XUqBEX2Y2oK35Og",
+													type: "web_hook",
+													address: "https://42672916.ngrok.com/google_notifications"}),
+			:headers => {'Content-Type' => 'application/json'}
+		}
 
-	# 	@client.execute(options)
-	# end
+		@client.execute(options)
+	end
 
 	# def calendar_watch_stop
 	# 	options = {
