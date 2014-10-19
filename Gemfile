@@ -16,3 +16,4 @@ gem 'google-api-client', :require => 'google/api_client'
 gem "geocoder"
 gem 'rails_12factor', group: :production
 gem "figaro"
+gem "yajl-ruby", require: "yajl"
