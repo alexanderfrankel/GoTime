@@ -1,11 +1,14 @@
 class GoogleCalendar
 	attr_reader :sync_token
 
+	WEB_HOOK_ADDRESS = "https://42672916.ngrok.com/google_notifications"
+
 	def initialize(current_user)
 		@current_user = current_user
 		@client = Google::APIClient.new
 		@client.authorization.access_token = @current_user.oauth_token
 		@service = @client.discovered_api('calendar', 'v3')
+		@channel_id = SecureRandom.uuid
 	end
 
 	def retrieve_calendar_events_with_location
@@ -41,28 +44,29 @@ class GoogleCalendar
 		@client.execute(options).data
 	end
 
-	def calendar_watch
+	def initiate_user_calendar_watch
 		options = {
 			:api_method => @service.events.watch,
 			:parameters => {"calendarId" => @current_user.email},
-			:body => JSON.dump({id: "cbi4vk1XUqBEX2Y2oK35Og",
+			:body => JSON.dump({id: @channel_id,
 													type: "web_hook",
-													address: "https://42672916.ngrok.com/google_notifications"}),
+													address: WEB_HOOK_ADDRESS}),
 			:headers => {'Content-Type' => 'application/json'}
 		}
 
 		@client.execute(options)
 	end
 
-	# def calendar_watch_stop
-	# 	options = {
-	# 		:api_method => @service.channels.stop,
-	# 		:parameters => {"calendarId" => @current_user.email},
-	# 		:body => JSON.dump({id: "my-unique-id-0001",
-	# 												resourceId:"gMe_fTErHb1mENwtlscj7zWWRzI"}),
-	# 		:headers => {'Content-Type' => 'application/json'}
-	# 	}
-	# end
+	def disable_user_calendar_watch(user_channel_id, user_resource_id)
+		options = {
+			:api_method => @service.channels.stop,
+			:body => JSON.dump({id: user_channel_id,
+													resourceId: user_resource_id}),
+			:headers => {'Content-Type' => 'application/json'}
+		}
+
+		@client.execute(options)
+	end
 
 	private
 

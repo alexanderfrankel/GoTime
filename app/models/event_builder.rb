@@ -13,6 +13,18 @@ class EventBuilder
 		save_sync_token
 	end
 
+	def watch_user_calendar_for_event_changes
+		response = @user_calendar.initiate_user_calendar_watch
+		save_channel_id(JSON[response.body]["id"])
+		save_resource_id(JSON[response.body]["resourceId"])
+	end
+
+	def disable_watch_user_calendar_for_event_changes
+		@user_calendar.disable_user_calendar_watch(@user.channel_id, @user.resource_id)
+		remove_channel_id
+		remove_resource_id
+	end
+
 	private
 
 	def retrieve_events_with_location
@@ -25,6 +37,26 @@ class EventBuilder
 
 	def save_sync_token
 		@user.sync_token = @user_calendar.sync_token
+		@user.save
+	end
+
+	def save_channel_id(id)
+		@user.channel_id = id
+		@user.save
+	end
+
+	def remove_channel_id
+		@user.channel_id = nil
+		@user.save
+	end
+
+	def save_resource_id(id)
+		@user.resource_id = id
+		@user.save
+	end
+
+	def remove_resource_id
+		@user.resource_id = nil
 		@user.save
 	end
 end

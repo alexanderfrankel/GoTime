@@ -15,6 +15,9 @@ class GoTimeController < ApplicationController
 		if current_user
 			current_user.update(:authorized? => false)
 			current_user.save
+
+			event_builder = EventBuilder.new(current_user)
+			event_builder.disable_watch_user_calendar_for_event_changes
 		end
 		redirect_to root_path
 	end
