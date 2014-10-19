@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 20141019200829) do
   create_table "events", force: true do |t|
     t.string   "appt_id"
     t.string   "transit_id"
-    t.integer  "location_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -41,7 +40,6 @@ ActiveRecord::Schema.define(version: 20141019200829) do
     t.string   "provider"
     t.string   "oauth_token"
     t.time     "oauth_expires_at"
-    t.integer  "location_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "refresh_token"

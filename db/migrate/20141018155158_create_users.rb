@@ -6,7 +6,6 @@ class CreateUsers < ActiveRecord::Migration
       t.string :provider
       t.string :oauth_token
       t.time :oauth_expires_at
-      t.references :location
 
       t.timestamps
     end
