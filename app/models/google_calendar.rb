@@ -23,7 +23,7 @@ class GoogleCalendar
 			:parameters => {"calendarId" => @current_user.email,
 											"id" => "cbi4vk1XUqBEX2Y2oK35Og",
 											"type" => "web_hook",
-											"address" => "http://localhost:3000/google_notifications"},
+											"address" => "https:/gotime.io/google_notifications"},
 			:headers => {'Content-Type' => 'application/json'}
 		}
 
