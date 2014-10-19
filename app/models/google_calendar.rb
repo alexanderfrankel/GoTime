@@ -10,7 +10,8 @@ class GoogleCalendar
 	def retrieve_calendar_events_with_location
 		options = {
 		  :api_method => @service.events.list,
-		  :parameters => {"calendarId" => @current_user.email},
+		  :parameters => {"calendarId" => @current_user.email,
+		  								"timeMax" => DateTime.now.xmlschema},
 		  :headers    => {"Content-Type" => "application/json"}
 		}
 
@@ -23,8 +24,6 @@ class GoogleCalendar
 		transit_event_end_time = convert_to_rfc3339(appt_event_start_time)
 
 		event = { 'summary' => 'IN TRANSIT',
-							'description' => 'blah',
-							'location' => 'cool',
 							'start' => {'dateTime' => transit_event_start_time},
 							'end' => {'dateTime' => transit_event_end_time} }
 

@@ -1,0 +1,32 @@
+<div class="site-wrapper">
+  <div class="site-wrapper-inner">
+    <div class="cover-container">
+
+      <div class="masthead clearfix">
+        <div class="inner">
+          <h3 class="masthead-brand">GoTime</h3>
+          <ul class="nav masthead-nav">
+            <% if current_user %>
+              <li class="active"><%= link_to "Sign Out", signout_path %></li>
+            <% else %>
+              <li class="active"><%= link_to "Sign In", "/auth/google_oauth2" %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+
+      <div class="inner cover">
+        <h1 class="cover-heading">GoTime</h1>
+        <p class="lead">Take your time with you wherever you go.</p>
+        <p class="lead"><a href="#" class="btn btn-lg btn-default">Go Time!</a></p>
+      </div>
+
+      <div class="mastfoot">
+        <div class="inner">
+          <p>A Zach Karst and Alexander Frankel Production.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
