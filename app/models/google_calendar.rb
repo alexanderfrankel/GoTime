@@ -3,19 +3,34 @@ class GoogleCalendar
 
 	WEB_HOOK_ADDRESS = "https://42672916.ngrok.com/google_notifications"
 
-	def initialize(current_user)
-		@current_user = current_user
+	def initialize(user)
+		@user = user
 		@client = Google::APIClient.new
-		@client.authorization.access_token = @current_user.oauth_token
+		@client.authorization.access_token = @user.oauth_token
 		@service = @client.discovered_api('calendar', 'v3')
 		@channel_id = SecureRandom.uuid
 	end
 
-	def retrieve_calendar_events_with_location
+	def initial_retrieve_calendar_events_with_location
 		options = {
 		  :api_method => @service.events.list,
-		  :parameters => {"calendarId" => @current_user.email,
+		  :parameters => {"calendarId" => @user.email,
 		  								"timeMin" => DateTime.now.xmlschema},
+		  :headers    => {"Content-Type" => "application/json"}
+		}
+
+		calendar_events = @client.execute(options).data
+		@sync_token = calendar_events.nextSyncToken
+
+		@calendar_events_with_location = events_with_location(calendar_events.items)
+	end
+
+	def incremental_retrieve_calendar_events_with_location
+		options = {
+		  :api_method => @service.events.list,
+		  :parameters => {"calendarId" => @user.email,
+		  								"timeMin" => DateTime.now.xmlschema,
+		  								"syncToken" => @user.sync_token},
 		  :headers    => {"Content-Type" => "application/json"}
 		}
 
@@ -36,7 +51,7 @@ class GoogleCalendar
 
 		options = {
 			:api_method => @service.events.insert,
-			:parameters => {'calendarId' => @current_user.email},
+			:parameters => {'calendarId' => @user.email},
 			:body => JSON.dump(event),
 			:headers => {'Content-Type' => 'application/json'}
 		}
@@ -47,7 +62,7 @@ class GoogleCalendar
 	def initiate_user_calendar_watch
 		options = {
 			:api_method => @service.events.watch,
-			:parameters => {"calendarId" => @current_user.email},
+			:parameters => {"calendarId" => @user.email},
 			:body => JSON.dump({id: @channel_id,
 													type: "web_hook",
 													address: WEB_HOOK_ADDRESS}),

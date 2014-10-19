@@ -4,13 +4,22 @@ class EventBuilder
 		@user_calendar = GoogleCalendar.new(user)
 	end
 
-	def add_appts_and_transit_events_to_database
-		retrieve_events_with_location.each do |appt_event|
+	def add_initial_appts_and_transit_events_to_database
+		initial_retrieve_events_with_location.each do |appt_event|
 			Event.create(appt_id: appt_event.id,
 								transit_id: add_transit_event_to_calendar(appt_event).id,
 								user_id: @user.id)
 		end
 		save_sync_token
+	end
+
+	def add_incremental_appts_and_transit_events_to_database
+		incremental_retrieve_events_with_location.each do |appt_event|
+			puts
+			puts "NEW EVENT!!!!!!!!"
+			puts
+			puts
+		end
 	end
 
 	def watch_user_calendar_for_event_changes
@@ -25,10 +34,19 @@ class EventBuilder
 		remove_resource_id
 	end
 
+	def remove_all_user_events
+		Event.destroy_all(user_id: @user.id)
+	end
+
+
 	private
 
-	def retrieve_events_with_location
-		@user_calendar.retrieve_calendar_events_with_location
+	def initial_retrieve_events_with_location
+		@user_calendar.initial_retrieve_calendar_events_with_location
+	end
+
+	def incremental_retrieve_events_with_location
+		@user_calendar.incremental_retrieve_calendar_events_with_location
 	end
 
 	def add_transit_event_to_calendar(appt_event)
