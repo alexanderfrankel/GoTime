@@ -9,7 +9,7 @@ class GoogleDirectionQuery
   end
 
   def get_directions
-    parser = Yajl::Parser.new
+    parser = Yajl::Parser.new(symbolize_keys: true)
     url = URI.parse(prepare_query)
     result = Net::HTTP.get(url)
     directions = parser.parse(result)
