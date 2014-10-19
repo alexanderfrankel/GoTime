@@ -12,24 +12,25 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20141019200829) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "events", force: true do |t|
     t.string   "appt_id"
     t.string   "transit_id"
+    t.integer  "location_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "orig_loc_id"
-    t.integer  "dest_loc_id"
   end
 
   create_table "locations", force: true do |t|
     t.string   "address"
     t.float    "latitude"
     t.float    "longitude"
-    t.integer  "user_id"
+    t.integer  "locationable_id"
+    t.string   "locationable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -40,14 +41,12 @@ ActiveRecord::Schema.define(version: 20141019200829) do
     t.string   "provider"
     t.string   "oauth_token"
     t.time     "oauth_expires_at"
+    t.integer  "location_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "refresh_token"
-<<<<<<< HEAD
-    t.string   "sync_token"
-=======
     t.boolean  "authorized?",      default: false
->>>>>>> master
+    t.string   "sync_token"
   end
 
 end

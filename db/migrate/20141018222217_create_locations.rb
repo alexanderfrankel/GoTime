@@ -4,7 +4,7 @@ class CreateLocations < ActiveRecord::Migration
       t.string :address
       t.float :latitude
       t.float :longitude
-      t.belongs_to :user
+      t.references :locationable, polymorphic: true
 
       t.timestamps
     end
