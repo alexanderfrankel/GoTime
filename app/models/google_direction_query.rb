@@ -10,7 +10,8 @@ class GoogleDirectionQuery
 
   def get_directions
     parser = Yajl::Parser.new(symbolize_keys: true)
-    url = URI.parse(prepare_query)
+    encoded_url = URI.encode(prepare_query)
+    url = URI.parse(encoded_url)
     result = Net::HTTP.get(url)
     directions = parser.parse(result)
   end
@@ -25,7 +26,8 @@ class GoogleDirectionQuery
   end
 
   def calculate_arrival_time
-    arrival_time = DateTime.rfc3339(@event_time) - 5.minutes
+    p @event_time
+    arrival_time = @event_time - 5.minutes
     arrival_time.to_i
   end
 end

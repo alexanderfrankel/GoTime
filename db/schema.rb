@@ -22,15 +22,14 @@ ActiveRecord::Schema.define(version: 20141019212152) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "orig_loc_id"
-    t.integer  "dest_loc_id"
   end
 
   create_table "locations", force: true do |t|
     t.string   "address"
     t.float    "latitude"
     t.float    "longitude"
-    t.integer  "user_id"
+    t.integer  "locationable_id"
+    t.string   "locationable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
