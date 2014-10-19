@@ -29,7 +29,6 @@ class GoogleCalendar
 		options = {
 		  :api_method => @service.events.list,
 		  :parameters => {"calendarId" => @user.email,
-		  								"timeMin" => DateTime.now.xmlschema,
 		  								"syncToken" => @user.sync_token},
 		  :headers    => {"Content-Type" => "application/json"}
 		}

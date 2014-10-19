@@ -19,7 +19,7 @@ class GoogleDirectionQuery
   private
 
   def prepare_query
-    orig_coord = "#{@orig_loc.latitude}, #{@orig_loc.longitude}" 
+    orig_coord = "#{@orig_loc.latitude}, #{@orig_loc.longitude}"
     dest_coord = "#{@dest_loc.latitude}, #{@dest_loc.longitude}"
 
     "https://maps.googleapis.com/maps/api/directions/json?origin=#{orig_coord}&destination=#{dest_coord}&key=#{ENV["GOOGLE_API_KEY"]}&arrival_time=#{calculate_arrival_time}&mode=transit"

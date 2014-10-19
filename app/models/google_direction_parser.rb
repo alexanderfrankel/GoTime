@@ -8,7 +8,7 @@ class GoogleDirectionParser
     arrival_time = Time.at(@directions[:arrival_time][:value]).xmlschema
     departure_time = Time.at(@directions[:departure_time][:value]).xmlschema
 
-    @times = { arrival_time: arrival_time, 
+    @times = { arrival_time: arrival_time,
                departure_time: departure_time }
   end
 
@@ -28,7 +28,7 @@ class GoogleDirectionParser
     #   end
     # end
     # @parsed_directions
-    # 
+    #
     "Directions go here"
   end
 end
