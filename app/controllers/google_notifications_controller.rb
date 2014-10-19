@@ -11,7 +11,7 @@ class GoogleNotificationsController < ApplicationController
 		# puts request_header
 
 		# current_user_calendar = GoogleCalendar.new(current_user)
-		puts "MAYBE ITS WORKING!!!!!!!!!!!!"
+		raise "ITS WORKING!!"
 		render :nothing => true
 	end
 end
