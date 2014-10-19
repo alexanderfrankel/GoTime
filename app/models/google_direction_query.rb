@@ -1,3 +1,6 @@
+require 'uri'
+require 'yajl'
+
 class GoogleDirectionQuery
   def initialize orig_loc, dest_loc, event_time
     @orig_loc = orig_loc
@@ -6,6 +9,10 @@ class GoogleDirectionQuery
   end
 
   def get_directions
+    parser = Yajl::Parser.new
+    url = URI.parse(prepare_query)
+    result = Net::HTTP.get(url)
+    directions = parser.parse(result)
   end
 
   private
