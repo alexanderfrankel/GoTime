@@ -1,5 +1,8 @@
 <% if current_user %>
-	<%= @user_calendar %>
+	<%= @current_user %>
+	<%= @current_user.email %>
+	<%= @current_user.oauth_token %>
+
 	<% @result.each do |event| %>
 		<%= event.kind %><br>
 		<%= event.etag %><br>
