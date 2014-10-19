@@ -24,9 +24,9 @@ class GoogleCalendar
 
 	def add_transit_event(appt_event, transit_directions, event_times)
 		
-		transit_event_start_time = convert_to_rfc3339(event_times.departure_time)
+		transit_event_start_time = event_times[:departure_time]
 
-		transit_event_end_time = convert_to_rfc3339(event_times.arrival_time)
+		transit_event_end_time = event_times[:arrival_time]
 
 		event = { 'summary' => 'IN TRANSIT',
 							'description' => transit_directions,
@@ -75,9 +75,4 @@ class GoogleCalendar
 		end
 		events_with_location
 	end
-
-	def convert_to_rfc3339(datetime)
-		datetime.xmlschema
-	end
-
 end
