@@ -10,6 +10,7 @@ class EventBuilder
 								transit_id: add_transit_event_to_calendar(appt_event).id,
 								user_id: @user.id)
 		end
+		save_sync_token
 	end
 
 	private
@@ -22,4 +23,8 @@ class EventBuilder
 		@user_calendar.add_transit_event(appt_event)
 	end
 
+	def save_sync_token
+		@user.sync_token = @user_calendar.sync_token
+		@user.save
+	end
 end
