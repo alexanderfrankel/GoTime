@@ -21,7 +21,12 @@
         <% if current_user && user_authorized? %>
           <p class="lead"><%= link_to "Unauthorize", unauthorize_path, class:"btn btn-lg btn-default" %></p>
         <% elsif current_user%>
-          <p class="lead"><%= link_to "Authorize", authorize_path, :method => :post, class:"btn btn-lg btn-default" %></p>
+          <p class="lead"><form class="form-inline" role="form">
+            <%= form_tag("/authorize", method: "post") do %>
+              <%= text_field_tag(:address, '', placeholder: "Enter your address", class: "form-control input-lg") %>
+              <%= submit_tag("Authorize", class:"btn btn-lg btn-default") %>
+            <% end %>
+            </p>
         <% else %>
           <p class="lead"><%= link_to "Sign In", "/auth/google_oauth2", class:"btn btn-lg btn-default" %></p>
         <% end %>
