@@ -1,12 +1,12 @@
 class GoogleDirectionParser
   def initialize directions
-    @directions = directions[:routes][0][:legs][0]
+    @directions = directions.routes[0].legs[0]
     @parsed_directions = []
   end
 
   def parse_time
-    arrival_time = Time.at(@directions[:arrival_time][:value]).xmlschema
-    departure_time = Time.at(@directions[:departure_time][:value]).xmlschema
+    arrival_time = Time.at(@directions.arrival_time.value).xmlschema
+    departure_time = Time.at(@directions.departure_time.value).xmlschema
 
     @times = { arrival_time: arrival_time,
                departure_time: departure_time }
@@ -29,6 +29,11 @@ class GoogleDirectionParser
     # end
     # @parsed_directions
     #
-    "Directions go here"
+    parse_subway
+  end
+
+  def parse_subway
+    subway_info = @directions.steps[1].transit_details
+    parsed_directions = "Take the #{subway_info.line.short_name} towards #{subway_info.headsign} from #{subway_info.departure_stop.name} at #{subway_info.departure_time.text}. Get off at #{subway_info.arrival_stop.name} at #{subway_info.arrival_stop.text}."
   end
 end
