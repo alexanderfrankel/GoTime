@@ -22,7 +22,7 @@
           <p class="lead"><%= link_to "Unauthorize", unauthorize_path, class:"btn btn-lg btn-default", id:"authorize-button" %></p>
         <% elsif current_user%>
             <%= form_tag({controller: "go_time", action: "create"}, method: "post", class: "form-inline") do %>
-              <%= text_field_tag(:address, '', placeholder: "Please enter your address", class: "form-control input-lg", id:"enter-address") %>
+              <%= text_field_tag(:address, '', placeholder: "Please enter your address", :required => true, class: "form-control input-lg", id:"enter-address") %>
               <%= submit_tag("Authorize", class:"btn btn-lg btn-default", id:"authorize-button") %>
             <% end %>
         <% else %>
