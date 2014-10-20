@@ -1,6 +1,8 @@
 class GoTimeController < ApplicationController
 	def create
 		if current_user
+			current_user.location = Location.create(address: params["address"])
+
 			current_user.update(:authorized? => true)
 			current_user.save
 

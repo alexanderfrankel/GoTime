@@ -4,7 +4,7 @@
 
       <div class="masthead clearfix">
         <div class="inner">
-          <h3 class="masthead-brand">GoTime</h3>
+          <h3 class="masthead-brand" id="brand-image">GoTime</h3>
           <ul class="nav masthead-nav">
             <% if current_user %>
               <li class="active"><%= link_to "Sign Out", signout_path %></li>
@@ -16,19 +16,17 @@
       </div>
 
       <div class="inner cover">
-        <h1 class="cover-heading">GoTime</h1>
-        <p class="lead">Take your time with you wherever you go.</p>
+        <p class="lead" id="intro-tagline">Take your time with you wherever you go.</p>
+        <p class="lead" id="intro-message">All you have to do is enter your address as your starting location and we will automagically calculate how long it will take to get to all of your calendar appointments. And don't worry...we will even add a placeholder event in your google calendar as a reminder! </p>
         <% if current_user && user_authorized? %>
-          <p class="lead"><%= link_to "Unauthorize", unauthorize_path, class:"btn btn-lg btn-default" %></p>
+          <p class="lead"><%= link_to "Unauthorize", unauthorize_path, class:"btn btn-lg btn-default", id:"authorize-button" %></p>
         <% elsif current_user%>
-          <p class="lead"><form class="form-inline" role="form">
-            <%= form_tag("/authorize", method: "post") do %>
-              <%= text_field_tag(:address, '', placeholder: "Enter your address", class: "form-control input-lg") %>
-              <%= submit_tag("Authorize", class:"btn btn-lg btn-default") %>
+            <%= form_tag({controller: "go_time", action: "create"}, method: "post", class: "form-inline") do %>
+              <%= text_field_tag(:address, '', placeholder: "Please enter your address", class: "form-control input-lg", id:"enter-address") %>
+              <%= submit_tag("Authorize", class:"btn btn-lg btn-default", id:"authorize-button") %>
             <% end %>
-            </p>
         <% else %>
-          <p class="lead"><%= link_to "Sign In", "/auth/google_oauth2", class:"btn btn-lg btn-default" %></p>
+          <p class="lead"><%= link_to "Sign In", "/auth/google_oauth2", class:"btn btn-lg btn-default", id:"authorize-button" %></p>
         <% end %>
       </div>
 

@@ -7,3 +7,24 @@
 h1, p, .cover-heading, .masthead-brand {
 	color: white;
 }
+
+#authorize-button {
+	margin: 60px 0;
+}
+
+#enter-address {
+	width: 500px;
+}
+
+#brand-image {
+	font-size: 34px;
+	margin-top: 6px;
+}
+
+#intro-tagline {
+	font-size: 24px;
+}
+
+#intro-message {
+	font-size: 18px;
+}
